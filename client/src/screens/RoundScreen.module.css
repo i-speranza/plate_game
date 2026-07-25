@@ -29,6 +29,14 @@
   box-shadow: 0 0 0 2px var(--color-error);
 }
 
+.feedbackArea {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
 .feedbackSuccess {
   text-align: center;
   color: var(--color-success);
@@ -41,4 +49,9 @@
   color: var(--color-error);
   margin: 0;
   font-size: 0.875rem;
+}
+
+.giveUpArea {
+  margin-top: 1.5rem;
+  text-align: center;
 }
