@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^10.0.2",
+    "@fastify/static": "^10.1.2",
     "@plate-game/shared": "*",
     "fastify": "^5.2.1",
     "socket.io": "^4.8.1"

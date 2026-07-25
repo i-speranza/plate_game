@@ -52,16 +52,16 @@ function validateWord(
 ): SubmitResult {
   const trimmed = word.trim();
   if (!trimmed) {
-    return { valid: false, reason: 'Enter a word' };
+    return { valid: false, reason: 'ENTER_WORD' };
   }
 
   if (!dictionaryService.has(trimmed, language)) {
-    return { valid: false, reason: 'Not in dictionary' };
+    return { valid: false, reason: 'NOT_IN_DICTIONARY' };
   }
 
   const matchCount = countDistinctPlateLetters(trimmed, plateLetters);
   if (matchCount === 0) {
-    return { valid: false, reason: 'Must contain a plate letter' };
+    return { valid: false, reason: 'MUST_CONTAIN_PLATE_LETTER' };
   }
 
   return { valid: true };

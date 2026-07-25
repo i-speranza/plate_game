@@ -58,10 +58,49 @@ If download fails, a small fallback word list is used for local development.
 |---|---|
 | `npm run dev` | Run client + server concurrently |
 | `npm run build` | Build all packages |
+| `npm run build:prod` | Build for production (includes dictionaries) |
 | `npm run build:dicts` | Download/build dictionary JSON files |
+| `npm start` | Run production server (serves API + client) |
 | `npm run test` | Run shared package unit tests |
 
-## Scoring
+## Deploy (Render)
+
+Production runs as a **single web service**: the Node server serves the built React client and Socket.io on the same origin.
+
+### Local production smoke test
+
+```bash
+npm install
+npm run build:prod
+npm start
+```
+
+Open [http://localhost:3001](http://localhost:3001) (or the port set in `PORT`).
+
+### Render setup
+
+1. Push `main` to GitHub.
+2. [Render](https://render.com) → **New Web Service** → connect this repo.
+3. Use settings from [`render.yaml`](render.yaml) (or set manually):
+   - **Build:** `npm install && npm run build:prod`
+   - **Start:** `npm start`
+   - **Health check:** `/health`
+   - **Instance:** Free
+4. Deploy and test from two devices (create + join a session).
+
+Optional env vars (see [`.env.example`](.env.example)):
+
+- `PORT` — set automatically by Render
+- `NODE_OPTIONS=--max-old-space-size=460` — optional heap cap on 512 MB free tier
+
+### Free tier caveats
+
+- **Cold start:** after ~15 minutes idle, the next visit may take 30–60 seconds to wake up.
+- **In-memory sessions:** server restarts or deploys clear active games (no database yet).
+- **Dictionaries:** built during deploy from upstream sources; fallback lists apply if download fails.
+
+To remove cold starts, upgrade the Render instance to Starter ($7/month).
+
 
 Scores interpolate linearly from max (at round start) to min (at round end) based on submission time. Tiers: ordered 4-letter subsequence (1500–1200), any 4 letters (1000–800), 3 letters (800–600), 2 letters (600–400), 1 letter (0).
 

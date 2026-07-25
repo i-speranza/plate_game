@@ -1,11 +1,17 @@
+import { existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import fastifyStatic from '@fastify/static';
 import { Server } from 'socket.io';
 import { registerSocketHandlers } from './socketHandlers.js';
 import { SessionStore } from './sessionStore.js';
 import { dictionaryService } from './dictionaryService.js';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3001;
+const clientDist = join(__dirname, '../../client/dist');
 
 async function main() {
   dictionaryService.load();
@@ -15,6 +21,27 @@ async function main() {
   await fastify.register(cors, { origin: true });
 
   fastify.get('/health', async () => ({ ok: true }));
+
+  if (existsSync(clientDist)) {
+    await fastify.register(fastifyStatic, {
+      root: clientDist,
+      prefix: '/',
+    });
+
+    fastify.setNotFoundHandler((request, reply) => {
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        reply.code(404).send({ error: 'Not found' });
+        return;
+      }
+      if (request.url.startsWith('/socket.io')) {
+        reply.code(404).send({ error: 'Not found' });
+        return;
+      }
+      reply.sendFile('index.html');
+    });
+
+    console.log(`Serving client from ${clientDist}`);
+  }
 
   await fastify.listen({ port: PORT, host: '0.0.0.0' });
 
