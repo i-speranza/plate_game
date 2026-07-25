@@ -20,7 +20,13 @@ async function main() {
   const fastify = Fastify({ logger: false });
   await fastify.register(cors, { origin: true });
 
-  fastify.get('/health', async () => ({ ok: true }));
+  fastify.get('/health', async () => ({
+    ok: true,
+    dictionaries: {
+      it: dictionaryService.size('it'),
+      en: dictionaryService.size('en'),
+    },
+  }));
 
   if (existsSync(clientDist)) {
     await fastify.register(fastifyStatic, {

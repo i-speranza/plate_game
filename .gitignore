@@ -19,4 +19,3 @@ coverage/
 server/scripts/.cache/
 server/scripts/current_version/
 server/scripts/morph-it.tgz
-server/dictionary/*.json

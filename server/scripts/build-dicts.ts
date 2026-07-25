@@ -86,6 +86,15 @@ async function buildItalian(): Promise<string[]> {
     const localTgz = join(__dirname, 'morph-it.tgz');
     const morphPath = join(cacheDir, 'morph-it_048.txt');
     const localMorph = join(__dirname, 'current_version', 'morph-it_048.txt');
+    const committedDict = join(outDir, 'it.json');
+
+    if (existsSync(committedDict)) {
+      const existing: string[] = JSON.parse(readFileSync(committedDict, 'utf-8'));
+      if (existing.length > 1000) {
+        console.log(`Using committed Italian dictionary (${existing.length} words)`);
+        return existing;
+      }
+    }
 
     if (!existsSync(morphPath)) {
       let sourceTgz = tgzPath;

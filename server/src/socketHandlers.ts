@@ -91,6 +91,7 @@ function startCountdown(io: Server, session: GameSession, store: SessionStore): 
 
   io.to(session.passcode).emit('round:countdown', {
     endsAt: session.countdownEndsAt,
+    durationMs: COUNTDOWN_MS,
     letters: session.letters,
   });
 

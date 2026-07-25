@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ROUND_COUNTDOWN_MS } from '@plate-game/shared';
 import { LetterBoxes } from '../components/LetterBoxes';
 import { PlateTile } from '../components/PlateTile';
 import styles from './LetterPickScreen.module.css';
@@ -92,7 +93,7 @@ export function CountdownScreen({
   endsAt: number | null;
 }) {
   const { t } = useTranslation();
-  const [seconds, setSeconds] = useState(3);
+  const [seconds, setSeconds] = useState(Math.ceil(ROUND_COUNTDOWN_MS / 1000));
 
   useEffect(() => {
     if (!endsAt) return;

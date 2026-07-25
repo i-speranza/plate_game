@@ -22,7 +22,7 @@ export interface ClientToServerEvents {
 
 export interface ServerToClientEvents {
   'session:state': (snapshot: SessionSnapshot) => void;
-  'round:countdown': (data: { endsAt: number; letters: string[] }) => void;
+  'round:countdown': (data: { endsAt: number; durationMs: number; letters: string[] }) => void;
   'round:start': (data: { letters: string[]; startedAt: number; durationMs: number }) => void;
   'round:tick': (data: { remainingMs: number }) => void;
   'round:submitResult': (result: SubmitResult) => void;

@@ -1,10 +1,12 @@
-import { cpSync, existsSync, mkdirSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(__dirname, '..', 'dictionary');
 const destDir = join(__dirname, '..', 'dist', 'dictionary');
+
+const MIN_WORDS = { it: 1000, en: 1000 };
 
 if (!existsSync(srcDir)) {
   console.error('Dictionary source directory missing:', srcDir);
@@ -19,7 +21,18 @@ for (const lang of ['it', 'en']) {
     console.error('Dictionary file missing:', src);
     process.exit(1);
   }
+
+  const words = JSON.parse(readFileSync(src, 'utf-8'));
+  if (!Array.isArray(words) || words.length < MIN_WORDS[lang]) {
+    console.error(
+      `Dictionary ${lang} is too small (${words.length ?? 0} words, need >= ${MIN_WORDS[lang]}).`,
+      'Restore the committed dictionary files or run npm run build:dicts locally.',
+    );
+    process.exit(1);
+  }
+
   cpSync(src, join(destDir, `${lang}.json`));
+  console.log(`Copied ${lang}.json (${words.length} words)`);
 }
 
 console.log('Copied dictionaries to dist/dictionary');

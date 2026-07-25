@@ -25,6 +25,12 @@ export function useGameSocket() {
     const onState = (state: SessionSnapshot) => {
       setSnapshot(state);
       setError(null);
+      if (state.phase === 'countdown' && state.countdownEndsAt) {
+        const remainingMs = Math.max(0, state.countdownEndsAt - Date.now());
+        setCountdownEndsAt(Date.now() + remainingMs);
+      } else if (state.phase !== 'countdown') {
+        setCountdownEndsAt(null);
+      }
       const storedId = sessionStorage.getItem('plateGamePlayerId');
       const storedNick = sessionStorage.getItem('plateGameNickname');
       if (storedId && state.players.some((p) => p.id === storedId)) {
@@ -39,8 +45,8 @@ export function useGameSocket() {
         }
       }
     };
-    const onCountdown = (data: { endsAt: number; letters: string[] }) => {
-      setCountdownEndsAt(data.endsAt);
+    const onCountdown = (data: { endsAt: number; durationMs: number; letters: string[] }) => {
+      setCountdownEndsAt(Date.now() + data.durationMs);
       setSnapshot((prev) => (prev ? { ...prev, letters: data.letters, phase: 'countdown' } : prev));
     };
     const onRoundStart = (data: { startedAt: number; durationMs: number; letters: string[] }) => {

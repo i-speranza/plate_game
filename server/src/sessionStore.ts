@@ -9,11 +9,11 @@ import type {
   SessionSnapshot,
   Submission,
 } from '@plate-game/shared';
-import { DEFAULT_SETTINGS } from '@plate-game/shared';
+import { DEFAULT_SETTINGS, ROUND_COUNTDOWN_MS } from '@plate-game/shared';
 
 const PASSCODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000;
-const COUNTDOWN_MS = 3000;
+const COUNTDOWN_MS = ROUND_COUNTDOWN_MS;
 
 export interface InternalPlayer extends Player {
   socketId: string | null;
