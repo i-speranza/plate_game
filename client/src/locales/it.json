@@ -1,0 +1,120 @@
+{
+  "appTitle": "Plate Word Game",
+  "language": {
+    "label": "Lingua",
+    "it": "Italiano",
+    "en": "English"
+  },
+  "common": {
+    "passcode": "Codice",
+    "roundOf": "Turno {{current}} di {{total}}",
+    "pts": "{{count}} pt",
+    "pts_other": "{{count}} pt",
+    "pointsShort": "pt",
+    "waitingForHost": "In attesa dell'host…",
+    "host": "Host",
+    "offline": "offline"
+  },
+  "errors": {
+    "INVALID_NICKNAME": "Scegli un nickname",
+    "INVALID_PASSCODE": "Inserisci il codice partita",
+    "SESSION_NOT_FOUND": "Partita non trovata",
+    "INVALID_LETTERS": "Inserisci esattamente 4 lettere valide",
+    "ENTER_WORD": "Inserisci una parola",
+    "NOT_IN_DICTIONARY": "Parola non nel dizionario",
+    "MUST_CONTAIN_PLATE_LETTER": "Deve contenere almeno una lettera della targa"
+  },
+  "home": {
+    "connecting": "Connessione in corso…",
+    "accessPanelAria": "Crea o unisciti a una partita",
+    "titlePlateAria": "Plate Word Game",
+    "nickname": "Nickname",
+    "nicknamePlaceholder": "Come ti chiami?",
+    "createGame": "Crea partita",
+    "joinGame": "Unisciti",
+    "passcodePlaceholder": "Codice a 6 caratteri",
+    "join": "Entra",
+    "back": "Indietro",
+    "howToPlay": "Come si gioca",
+    "intro": "Osserva le lettere della targa e trova parole che le contengono. Lettere e velocità: la combo vincente per scalare la classifica!",
+    "steps": {
+      "1": "Crea una partita e condividi il codice, oppure entra con quello di un amico.",
+      "2": "L'host imposta turni, durata e lingua, poi avvia la sfida.",
+      "3": "A ogni turno compaiono 4 lettere di una targa: scrivi una parola che le contenga e inviala prima che scada il tempo.",
+      "4": "A fine turno vedi le migliori parole e i punteggi di tutti. Che vinca il migliore!"
+    },
+    "wordRules": "Regole sulle parole",
+    "rules": {
+      "1": "Dev'essere nel dizionario, in forma base (niente plurali o coniugazioni).",
+      "2": "Niente nomi propri: persone, luoghi o marchi.",
+      "3": "Deve contenere almeno una delle 4 lettere della targa."
+    },
+    "scoring": "Punteggio",
+    "scoringNote": "Servono almeno <1>2 lettere corrispondenti</1> per fare punti. Con una sola lettera la parola è valida, ma vale <2>0</2> punti.",
+    "scoreTiers": {
+      "ordered": "4 lettere nell'ordine della targa",
+      "fourLetter": "4 lettere in ordine sparso",
+      "threeLetter": "3 lettere",
+      "twoLetter": "2 lettere",
+      "oneLetter": "1 lettera"
+    },
+    "upTo": "fino a {{count}}",
+    "zeroPts": "0 pt",
+    "scoringFooter": "Conta solo la parola migliore di ogni turno. Più aspetti, meno punti ottieni."
+  },
+  "lobby": {
+    "title": "Lobby",
+    "copied": "Copiato!",
+    "copyShareLink": "Copia il link di invito",
+    "players": "Giocatori",
+    "matchSettings": "Impostazioni partita",
+    "rounds": "Turni (1–20)",
+    "roundDuration": "Durata del turno",
+    "durationSeconds": "{{count}} s",
+    "startGame": "Avvia la partita"
+  },
+  "letterPick": {
+    "chooseLetters": "Scegli le lettere della targa",
+    "hostChoosing": "L'host sta scegliendo le lettere…",
+    "random": "Casuale",
+    "manual": "Manuale",
+    "enterFourLetters": "Inserisci 4 lettere",
+    "confirmLetters": "Conferma lettere"
+  },
+  "countdown": {
+    "go": "Via!"
+  },
+  "round": {
+    "wordPlaceholder": "Scrivi una parola…",
+    "submit": "Invia",
+    "scoreFeedback": "✓ {{count}} pt",
+    "imDone": "Ho finito",
+    "waitingForOthers": "In attesa degli altri giocatori…"
+  },
+  "summary": {
+    "roundResults": "Risultati del turno {{round}}",
+    "bestMeta": "{{nickname}} — {{score}} pt",
+    "roundScores": "Punteggi del turno",
+    "totalScores": "Totale",
+    "nextRound": "Prossimo turno",
+    "viewFinalResults": "Classifica finale",
+    "endGame": "Termina partita"
+  },
+  "final": {
+    "winner": "Vincitore!",
+    "winners": "Vincitori!",
+    "gameOver": "Partita finita!",
+    "finalStandings": "Classifica finale",
+    "showBreakdown": "Mostra il dettaglio per turno",
+    "hideBreakdown": "Nascondi il dettaglio per turno",
+    "roundTitle": "Turno {{round}}",
+    "roundScoreLine": "{{nickname}}: {{score}} ({{word}})",
+    "playAgain": "Gioca di nuovo",
+    "leave": "Esci"
+  },
+  "aria": {
+    "passcode": "Codice {{text}}",
+    "plateLetters": "Lettere della targa {{value}}",
+    "letterN": "Lettera {{n}}"
+  }
+}

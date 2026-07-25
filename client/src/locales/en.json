@@ -1,0 +1,120 @@
+{
+  "appTitle": "Plate Word Game",
+  "language": {
+    "label": "Language",
+    "it": "Italian",
+    "en": "English"
+  },
+  "common": {
+    "passcode": "Passcode",
+    "roundOf": "Round {{current}} of {{total}}",
+    "pts": "{{count}} pt",
+    "pts_other": "{{count}} pts",
+    "pointsShort": "pts",
+    "waitingForHost": "Waiting for host…",
+    "host": "Host",
+    "offline": "offline"
+  },
+  "errors": {
+    "INVALID_NICKNAME": "Nickname required",
+    "INVALID_PASSCODE": "Passcode required",
+    "SESSION_NOT_FOUND": "Session not found",
+    "INVALID_LETTERS": "Enter exactly 4 valid letters",
+    "ENTER_WORD": "Enter a word",
+    "NOT_IN_DICTIONARY": "Not in dictionary",
+    "MUST_CONTAIN_PLATE_LETTER": "Must contain a plate letter"
+  },
+  "home": {
+    "connecting": "Connecting to server…",
+    "accessPanelAria": "Join or create a game",
+    "titlePlateAria": "Plate Word Game",
+    "nickname": "Nickname",
+    "nicknamePlaceholder": "Your name",
+    "createGame": "Create Game",
+    "joinGame": "Join Game",
+    "passcodePlaceholder": "6-character code",
+    "join": "Join",
+    "back": "Back",
+    "howToPlay": "How to play",
+    "intro": "Spot letters on a licence plate and race to find words that use them. Cover more letters and submit faster to score higher.",
+    "steps": {
+      "1": "Create a game and share the passcode, or join with a code from a friend.",
+      "2": "The host sets rounds, timer, and language, then starts the match.",
+      "3": "Each round shows 4 plate letters. Type a word and submit before time runs out.",
+      "4": "After each round, see everyone's best words and scores. Highest total wins."
+    },
+    "wordRules": "Word rules",
+    "rules": {
+      "1": "Must be in the dictionary, in base form (no plurals or conjugations).",
+      "2": "No proper nouns (names, places, brands).",
+      "3": "Must contain at least one of the 4 plate letters."
+    },
+    "scoring": "Scoring",
+    "scoringNote": "You need at least <1>2 matching letters</1> to earn points. One matching letter is valid, but scores <2>0</2>.",
+    "scoreTiers": {
+      "ordered": "4 letters in plate order",
+      "fourLetter": "4 letters, any order",
+      "threeLetter": "3 letters",
+      "twoLetter": "2 letters",
+      "oneLetter": "1 letter"
+    },
+    "upTo": "up to {{count}}",
+    "zeroPts": "0 pts",
+    "scoringFooter": "Only your best word per round counts. Points drop as the timer runs down."
+  },
+  "lobby": {
+    "title": "Lobby",
+    "copied": "Copied!",
+    "copyShareLink": "Copy share link",
+    "players": "Players",
+    "matchSettings": "Match settings",
+    "rounds": "Rounds (1–20)",
+    "roundDuration": "Round duration",
+    "durationSeconds": "{{count}}s",
+    "startGame": "Start Game"
+  },
+  "letterPick": {
+    "chooseLetters": "Choose plate letters",
+    "hostChoosing": "Host is choosing letters…",
+    "random": "Random",
+    "manual": "Manual",
+    "enterFourLetters": "Enter 4 letters",
+    "confirmLetters": "Confirm letters"
+  },
+  "countdown": {
+    "go": "Go!"
+  },
+  "round": {
+    "wordPlaceholder": "Type a word…",
+    "submit": "Submit",
+    "scoreFeedback": "✓ {{count}} pts",
+    "imDone": "I'm done",
+    "waitingForOthers": "Waiting for others…"
+  },
+  "summary": {
+    "roundResults": "Round {{round}} Results",
+    "bestMeta": "{{nickname}} — {{score}} pts",
+    "roundScores": "Round scores",
+    "totalScores": "Total scores",
+    "nextRound": "Next Round",
+    "viewFinalResults": "View Final Results",
+    "endGame": "End Game"
+  },
+  "final": {
+    "winner": "Winner!",
+    "winners": "Winners!",
+    "gameOver": "Game Over",
+    "finalStandings": "Final standings",
+    "showBreakdown": "Show round breakdown",
+    "hideBreakdown": "Hide round breakdown",
+    "roundTitle": "Round {{round}}",
+    "roundScoreLine": "{{nickname}}: {{score}} ({{word}})",
+    "playAgain": "Play Again",
+    "leave": "Leave"
+  },
+  "aria": {
+    "passcode": "Passcode {{text}}",
+    "plateLetters": "Plate letters {{value}}",
+    "letterN": "Letter {{n}}"
+  }
+}

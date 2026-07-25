@@ -1,0 +1,64 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.track {
+  flex: 1;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transition: width 0.1s linear, background 0.3s;
+}
+
+.urgent {
+  background: #ff9800;
+}
+
+.critical {
+  background: var(--color-error);
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+.timer {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  min-width: 3ch;
+  text-align: right;
+}
+
+.timerCritical {
+  color: var(--color-error);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .critical {
+    animation: none;
+  }
+}

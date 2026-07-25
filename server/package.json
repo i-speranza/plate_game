@@ -1,0 +1,24 @@
+{
+  "name": "@plate-game/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "build:dicts": "tsx scripts/build-dicts.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@plate-game/shared": "*",
+    "fastify": "^5.2.1",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "tar": "^7.4.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

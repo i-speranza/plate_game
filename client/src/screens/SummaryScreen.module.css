@@ -1,0 +1,74 @@
+.winnerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 12px;
+}
+
+.bestWord {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.bestMeta {
+  color: var(--color-muted);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.submissions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subCard {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  animation: dropIn 0.25s ease-out both;
+}
+
+.subName {
+  font-weight: 500;
+}
+
+.subWord {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+
+.subScore {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.hostActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subCard {
+    animation: none;
+  }
+}

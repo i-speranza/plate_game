@@ -1,0 +1,51 @@
+.plate {
+  background: linear-gradient(145deg, #0d0d1a 0%, #1a1a2e 100%);
+  border: 3px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.06),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.5);
+  perspective: 600px;
+}
+
+.inner {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(245, 197, 24, 0.3);
+}
+
+.passcode .letter {
+  font-size: 2rem;
+}
+
+.flip {
+  animation: flipIn 0.3s ease-out;
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip {
+    animation: none;
+  }
+}
