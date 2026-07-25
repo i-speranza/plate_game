@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Player, RoundResult, SessionSnapshot } from '@plate-game/shared';
 import { PlateTile } from '../components/PlateTile';
 import { Leaderboard } from '../components/Leaderboard';
@@ -24,6 +25,7 @@ function getBestSubmission(result: RoundResult, players: Player[]) {
 }
 
 export function SummaryScreen({ snapshot, isHost, playerId, onNext, onEnd }: SummaryScreenProps) {
+  const { t } = useTranslation();
   const latestResult = snapshot.roundResults[snapshot.roundResults.length - 1];
   const [revealed, setRevealed] = useState(0);
 
@@ -56,14 +58,14 @@ export function SummaryScreen({ snapshot, isHost, playerId, onNext, onEnd }: Sum
 
   return (
     <div className="screen">
-      <h2>Round {latestResult.roundNumber} Results</h2>
+      <h2>{t('summary.roundResults', { round: latestResult.roundNumber })}</h2>
 
       {best && (
         <div className={styles.winnerCard}>
           <PlateTile text={latestResult.letters.join(' ')} />
           <p className={styles.bestWord}>{best.word}</p>
           <p className={styles.bestMeta}>
-            {best.player.nickname} — {best.score} pts
+            {t('summary.bestMeta', { nickname: best.player.nickname, score: best.score })}
           </p>
         </div>
       )}
@@ -78,22 +80,22 @@ export function SummaryScreen({ snapshot, isHost, playerId, onNext, onEnd }: Sum
         ))}
       </div>
 
-      <Leaderboard title="Round scores" entries={snapshot.roundLeaderboard} highlightId={playerId ?? undefined} />
-      <Leaderboard title="Total scores" entries={snapshot.cumulativeLeaderboard} highlightId={playerId ?? undefined} />
+      <Leaderboard title={t('summary.roundScores')} entries={snapshot.roundLeaderboard} highlightId={playerId ?? undefined} />
+      <Leaderboard title={t('summary.totalScores')} entries={snapshot.cumulativeLeaderboard} highlightId={playerId ?? undefined} />
 
       {isHost ? (
         <div className={styles.hostActions}>
           {!isFinalRound && (
             <button className="btn btn-primary" onClick={onNext}>
-              Next Round
+              {t('summary.nextRound')}
             </button>
           )}
           <button className="btn btn-secondary" onClick={isFinalRound ? onNext : onEnd}>
-            {isFinalRound ? 'View Final Results' : 'End Game'}
+            {isFinalRound ? t('summary.viewFinalResults') : t('summary.endGame')}
           </button>
         </div>
       ) : (
-        <p className="waiting-text">Waiting for host…</p>
+        <p className="waiting-text">{t('common.waitingForHost')}</p>
       )}
     </div>
   );
