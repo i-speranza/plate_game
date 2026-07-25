@@ -79,49 +79,53 @@ function parseEnglishList(text: string): string[] {
 }
 
 async function buildItalian(): Promise<string[]> {
-  if (!existsSync(cacheDir)) mkdirSync(cacheDir, { recursive: true });
+  try {
+    if (!existsSync(cacheDir)) mkdirSync(cacheDir, { recursive: true });
 
-  const tgzPath = join(cacheDir, 'morph-it.tgz');
-  const localTgz = join(__dirname, 'morph-it.tgz');
-  const morphPath = join(cacheDir, 'morph-it_048.txt');
-  const localMorph = join(__dirname, 'current_version', 'morph-it_048.txt');
+    const tgzPath = join(cacheDir, 'morph-it.tgz');
+    const localTgz = join(__dirname, 'morph-it.tgz');
+    const morphPath = join(cacheDir, 'morph-it_048.txt');
+    const localMorph = join(__dirname, 'current_version', 'morph-it_048.txt');
 
-  if (!existsSync(morphPath)) {
-    let sourceTgz = tgzPath;
-    if (!existsSync(sourceTgz) && existsSync(localTgz)) {
-      sourceTgz = localTgz;
-    } else if (!existsSync(sourceTgz)) {
-      console.log('Downloading Morph-it dictionary…');
-      const ok = await fetchToFile(MORPH_IT_URL, tgzPath);
-      if (!ok && existsSync(localTgz)) {
+    if (!existsSync(morphPath)) {
+      let sourceTgz = tgzPath;
+      if (!existsSync(sourceTgz) && existsSync(localTgz)) {
         sourceTgz = localTgz;
-      } else if (!ok) {
-        console.warn('Morph-it download failed');
-        if (existsSync(localMorph)) {
-          const text = readFileSync(localMorph, 'utf-8');
-          const parsed = parseMorphIt(text);
-          if (parsed.length > 1000) return parsed.sort();
+      } else if (!existsSync(sourceTgz)) {
+        console.log('Downloading Morph-it dictionary…');
+        const ok = await fetchToFile(MORPH_IT_URL, tgzPath);
+        if (!ok && existsSync(localTgz)) {
+          sourceTgz = localTgz;
+        } else if (!ok) {
+          console.warn('Morph-it download failed');
+          if (existsSync(localMorph)) {
+            const text = readFileSync(localMorph, 'utf-8');
+            const parsed = parseMorphIt(text);
+            if (parsed.length > 1000) return parsed.sort();
+          }
+          return FALLBACK_IT.map((w) => normalizeWord(w, 'it')).sort();
         }
-        return FALLBACK_IT.map((w) => normalizeWord(w, 'it')).sort();
+      }
+
+      if (existsSync(sourceTgz)) {
+        console.log('Extracting Morph-it dictionary…');
+        await extract({ file: sourceTgz, cwd: cacheDir, strip: 0 });
+        const extracted = join(cacheDir, 'current_version', 'morph-it_048.txt');
+        if (existsSync(extracted)) {
+          writeFileSync(morphPath, readFileSync(extracted));
+        }
+      } else if (existsSync(localMorph)) {
+        writeFileSync(morphPath, readFileSync(localMorph));
       }
     }
 
-    if (existsSync(sourceTgz)) {
-      console.log('Extracting Morph-it dictionary…');
-      await extract({ file: sourceTgz, cwd: cacheDir, strip: 0 });
-      const extracted = join(cacheDir, 'current_version', 'morph-it_048.txt');
-      if (existsSync(extracted)) {
-        writeFileSync(morphPath, readFileSync(extracted));
-      }
-    } else if (existsSync(localMorph)) {
-      writeFileSync(morphPath, readFileSync(localMorph));
+    if (existsSync(morphPath)) {
+      const text = readFileSync(morphPath, 'utf-8');
+      const parsed = parseMorphIt(text);
+      if (parsed.length > 1000) return parsed.sort();
     }
-  }
-
-  if (existsSync(morphPath)) {
-    const text = readFileSync(morphPath, 'utf-8');
-    const parsed = parseMorphIt(text);
-    if (parsed.length > 1000) return parsed.sort();
+  } catch (err) {
+    console.warn('Italian dictionary build failed:', err);
   }
 
   console.warn('Using fallback Italian dictionary');
@@ -129,11 +133,15 @@ async function buildItalian(): Promise<string[]> {
 }
 
 async function buildEnglish(): Promise<string[]> {
-  console.log('Downloading English dictionary…');
-  const text = await fetchText(ENGLISH_URL);
-  if (text) {
-    const parsed = parseEnglishList(text);
-    if (parsed.length > 1000) return parsed.sort();
+  try {
+    console.log('Downloading English dictionary…');
+    const text = await fetchText(ENGLISH_URL);
+    if (text) {
+      const parsed = parseEnglishList(text);
+      if (parsed.length > 1000) return parsed.sort();
+    }
+  } catch (err) {
+    console.warn('English dictionary build failed:', err);
   }
 
   console.warn('Using fallback English dictionary');

@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Language } from '@plate-game/shared';
@@ -11,7 +11,9 @@ export class DictionaryService {
 
   load(): void {
     for (const lang of ['it', 'en'] as Language[]) {
-      const path = join(__dirname, '..', 'dictionary', `${lang}.json`);
+      const bundled = join(__dirname, 'dictionary', `${lang}.json`);
+      const devPath = join(__dirname, '..', 'dictionary', `${lang}.json`);
+      const path = existsSync(bundled) ? bundled : devPath;
       const raw = readFileSync(path, 'utf-8');
       const words: string[] = JSON.parse(raw);
       this.dictionaries.set(lang, new Set(words));

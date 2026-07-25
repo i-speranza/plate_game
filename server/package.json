@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && npm run build:dicts && npm run copy:dicts",
+    "copy:dicts": "node scripts/copy-dicts.mjs",
     "start": "node dist/index.js",
     "build:dicts": "tsx scripts/build-dicts.ts"
   },
