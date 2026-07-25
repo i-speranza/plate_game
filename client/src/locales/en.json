@@ -87,7 +87,8 @@
   "round": {
     "wordPlaceholder": "Type a word…",
     "submit": "Submit",
-    "scoreFeedback": "✓ {{count}} pts",
+    "scoreFeedback": "✓ {{score}} pts · {{matchCount}} matching letter",
+    "scoreFeedback_other": "✓ {{score}} pts · {{matchCount}} matching letters",
     "imDone": "I'm done",
     "waitingForOthers": "Waiting for others…"
   },

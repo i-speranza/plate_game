@@ -228,7 +228,7 @@ export function registerSocketHandlers(io: Server, store: SessionStore): void {
       const elapsedMs = session.roundStartedAt
         ? Date.now() - session.roundStartedAt
         : session.roundDurationMs;
-      const { tier, score } = scoreWord(
+      const { tier, score, matchCount } = scoreWord(
         word,
         session.letters,
         elapsedMs,
@@ -242,6 +242,7 @@ export function registerSocketHandlers(io: Server, store: SessionStore): void {
         valid: true,
         score,
         tier,
+        matchCount,
       });
     });
 

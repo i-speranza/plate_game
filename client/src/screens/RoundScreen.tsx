@@ -90,9 +90,16 @@ export function RoundScreen({
           </button>
         </form>
 
-        {submitResult?.valid && flash === 'success' && submitResult.score !== undefined && (
+        {submitResult?.valid &&
+          flash === 'success' &&
+          submitResult.score !== undefined &&
+          submitResult.matchCount !== undefined && (
           <p className={styles.feedbackSuccess}>
-            {t('round.scoreFeedback', { count: submitResult.score })}
+            {t('round.scoreFeedback', {
+              score: submitResult.score,
+              matchCount: submitResult.matchCount,
+              count: submitResult.matchCount,
+            })}
           </p>
         )}
         {submitResult && !submitResult.valid && submitResult.reason && (

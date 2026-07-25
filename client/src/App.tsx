@@ -31,7 +31,7 @@ export default function App() {
     const passcode = sessionStorage.getItem('plateGamePasscode');
     const nickname = sessionStorage.getItem('plateGameNickname');
     if (passcode && nickname && !snapshot && connected) {
-      joinSession(passcode, nickname);
+      joinSession(passcode, nickname, true);
     }
   }, [connected, snapshot, joinSession]);
 

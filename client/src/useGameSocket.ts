@@ -1,6 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SessionSnapshot, SubmitResult } from '@plate-game/shared';
 import { getSocket } from './socket';
+
+function clearStoredSession(): void {
+  sessionStorage.removeItem('plateGamePlayerId');
+  sessionStorage.removeItem('plateGamePasscode');
+}
 
 export function useGameSocket() {
   const [snapshot, setSnapshot] = useState<SessionSnapshot | null>(null);
@@ -10,6 +15,7 @@ export function useGameSocket() {
   const [countdownEndsAt, setCountdownEndsAt] = useState<number | null>(null);
   const [submitResult, setSubmitResult] = useState<SubmitResult | null>(null);
   const [connected, setConnected] = useState(false);
+  const lastJoinWasAutoRef = useRef(false);
 
   useEffect(() => {
     const socket = getSocket();
@@ -76,7 +82,17 @@ export function useGameSocket() {
       setSnapshot(data.snapshot);
       setRemainingMs(null);
     };
-    const onError = (data: { code: string; message: string }) => setError(data.code);
+    const onError = (data: { code: string; message: string }) => {
+      if (data.code === 'SESSION_NOT_FOUND') {
+        clearStoredSession();
+        setPlayerId(null);
+        if (lastJoinWasAutoRef.current) {
+          lastJoinWasAutoRef.current = false;
+          return;
+        }
+      }
+      setError(data.code);
+    };
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
@@ -119,10 +135,12 @@ export function useGameSocket() {
     });
   }, []);
 
-  const joinSession = useCallback((passcode: string, nickname: string) => {
+  const joinSession = useCallback((passcode: string, nickname: string, auto = false) => {
+    lastJoinWasAutoRef.current = auto;
     const socket = getSocket();
     socket.emit('session:join', { passcode, nickname });
     socket.once('session:state', (state) => {
+      lastJoinWasAutoRef.current = false;
       const me = state.players.find(
         (p) => p.nickname.toLowerCase() === nickname.toLowerCase(),
       ) ?? state.players[state.players.length - 1];
@@ -143,8 +161,7 @@ export function useGameSocket() {
     setRemainingMs(null);
     setCountdownEndsAt(null);
     setSubmitResult(null);
-    sessionStorage.removeItem('plateGamePlayerId');
-    sessionStorage.removeItem('plateGamePasscode');
+    clearStoredSession();
     sessionStorage.removeItem('plateGameNickname');
     const url = new URL(window.location.href);
     if (url.searchParams.has('code')) {

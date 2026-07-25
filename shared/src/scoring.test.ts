@@ -18,6 +18,14 @@ describe('letter matching', () => {
     expect(countDistinctPlateLetters('HELLO', plate)).toBe(0);
   });
 
+  it('counts duplicate plate letters using word letter availability', () => {
+    const duplicatePlate = ['R', 'L', 'R', 'P'];
+
+    expect(countDistinctPlateLetters('ALLORA', duplicatePlate)).toBe(2);
+    expect(countDistinctPlateLetters('ARRUOLARE', duplicatePlate)).toBe(3);
+    expect(countDistinctPlateLetters('PARLARE', duplicatePlate)).toBe(4);
+  });
+
   it('detects ordered subsequence match', () => {
     expect(isOrderedMatch('CURVARD', plate)).toBe(true);
     expect(isOrderedMatch('CRACCAD', plate)).toBe(true);
@@ -42,6 +50,13 @@ describe('scoring tiers', () => {
     expect(determineTier('CARO', plate)).toBe('threeLetter');
     expect(determineTier('CA', plate)).toBe('twoLetter');
     expect(determineTier('C', plate)).toBe('oneLetter');
+  });
+
+  it('assigns tiers with duplicate plate letters based on available word letters', () => {
+    const duplicatePlate = ['R', 'L', 'R', 'P'];
+
+    expect(determineTier('ALLORA', duplicatePlate)).toBe('twoLetter');
+    expect(determineTier('ARRUOLARE', duplicatePlate)).toBe('threeLetter');
   });
 
   it('scores at round start with max values', () => {

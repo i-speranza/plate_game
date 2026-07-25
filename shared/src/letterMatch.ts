@@ -2,12 +2,19 @@ import { normalizeLetter, normalizeWord } from './normalize.js';
 
 export function countDistinctPlateLetters(word: string, plateLetters: string[]): number {
   const normalizedWord = normalizeWord(word);
-  let count = 0;
+  const remaining = new Map<string, number>();
 
+  for (const ch of normalizedWord) {
+    remaining.set(ch, (remaining.get(ch) ?? 0) + 1);
+  }
+
+  let count = 0;
   for (const letter of plateLetters) {
     const normalizedLetter = normalizeLetter(letter).toLowerCase();
-    if (normalizedWord.includes(normalizedLetter)) {
+    const available = remaining.get(normalizedLetter) ?? 0;
+    if (available > 0) {
       count++;
+      remaining.set(normalizedLetter, available - 1);
     }
   }
 

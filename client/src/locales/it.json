@@ -87,7 +87,8 @@
   "round": {
     "wordPlaceholder": "Scrivi una parola…",
     "submit": "Invia",
-    "scoreFeedback": "✓ {{count}} pt",
+    "scoreFeedback": "✓ {{score}} pt · {{matchCount}} lettera corrispondente",
+    "scoreFeedback_other": "✓ {{score}} pt · {{matchCount}} lettere corrispondenti",
     "imDone": "Ho finito",
     "waitingForOthers": "In attesa degli altri giocatori…"
   },

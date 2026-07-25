@@ -90,6 +90,7 @@ export interface SubmitResult {
   reason?: SubmitReasonCode;
   score?: number;
   tier?: ScoreTier;
+  matchCount?: number;
 }
 
 export const DEFAULT_SETTINGS: MatchSettings = {
