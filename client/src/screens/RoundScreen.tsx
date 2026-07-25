@@ -46,7 +46,7 @@ export function RoundScreen({
         setFlash(null);
         onClearFeedback();
         inputRef.current?.focus();
-      }, 1500);
+      }, 1000);
       return () => clearTimeout(timer);
     }
 
@@ -54,7 +54,7 @@ export function RoundScreen({
     const timer = setTimeout(() => {
       setFlash(null);
       onClearFeedback();
-    }, 1500);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [submitResult, onClearFeedback]);
 
