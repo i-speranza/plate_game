@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { SCORE_CONFIG, type Language } from '@plate-game/shared';
+import { useTranslation } from 'react-i18next';
+import type { Language } from '@plate-game/shared';
 import { setUiLanguage } from '../i18n';
 import { LanguageSelect } from '../components/LanguageSelect';
 import { translateError } from '../translateError';
+import { HowToPlayScreen } from './HowToPlayScreen';
 import styles from './HomeScreen.module.css';
 
 interface HomeScreenProps {
@@ -14,17 +15,6 @@ interface HomeScreenProps {
 }
 
 const TITLE_ROWS = ['PLATE', 'WORD', 'GAME'];
-
-const STEP_KEYS = ['1', '2', '3', '4'] as const;
-const RULE_KEYS = ['1', '2', '3'] as const;
-
-const topMaxScore = SCORE_CONFIG.bands[0].maxScore;
-const SCORE_TIERS = SCORE_CONFIG.bands.map((band) => ({
-  key: band.tier,
-  max: band.maxScore,
-  width: band.maxScore === 0 ? 8 : Math.round((band.maxScore / topMaxScore) * 100),
-  zero: band.maxScore === 0,
-}));
 
 function TitlePlate({ ariaLabel }: { ariaLabel: string }) {
   return (
@@ -47,6 +37,7 @@ export function HomeScreen({ onCreate, onJoin, error, connected }: HomeScreenPro
   const [nickname, setNickname] = useState('');
   const [passcode, setPasscode] = useState('');
   const [mode, setMode] = useState<'menu' | 'join'>('menu');
+  const [view, setView] = useState<'home' | 'howToPlay'>('home');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -73,11 +64,16 @@ export function HomeScreen({ onCreate, onJoin, error, connected }: HomeScreenPro
     onJoin(passcode.trim().toUpperCase(), nickname.trim());
   };
 
+  if (view === 'howToPlay') {
+    return <HowToPlayScreen onBack={() => setView('home')} />;
+  }
+
   return (
     <div className={`screen ${styles.home}`}>
       <section className={styles.accessPanel} aria-label={t('home.accessPanelAria')}>
         <header className={styles.header}>
           <TitlePlate ariaLabel={t('home.titlePlateAria')} />
+          <p className={styles.tagline}>{t('home.tagline')}</p>
         </header>
 
         <div className={styles.languageRow}>
@@ -142,60 +138,12 @@ export function HomeScreen({ onCreate, onJoin, error, connected }: HomeScreenPro
             </button>
           </div>
         )}
-      </section>
 
-      <section className={styles.instructions} aria-labelledby="how-to-play">
-        <h2 id="how-to-play">{t('home.howToPlay')}</h2>
-        <p className={styles.instructionsIntro}>{t('home.intro')}</p>
-
-        <ol className={styles.steps}>
-          {STEP_KEYS.map((key, i) => (
-            <li key={key} className={styles.step}>
-              <span className={styles.stepNum} aria-hidden="true">
-                {i + 1}
-              </span>
-              <span>{t(`home.steps.${key}`)}</span>
-            </li>
-          ))}
-        </ol>
-
-        <div className={styles.panels}>
-          <div className={styles.panel}>
-            <h3>{t('home.wordRules')}</h3>
-            <ul>
-              {RULE_KEYS.map((key) => (
-                <li key={key}>{t(`home.rules.${key}`)}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={styles.panel}>
-            <h3>{t('home.scoring')}</h3>
-            <p className={styles.scoringNote}>
-              <Trans i18nKey="home.scoringNote" components={{ 1: <strong />, 2: <strong /> }} />
-            </p>
-            <ul className={styles.scoreTiers}>
-              {SCORE_TIERS.map((tier) => (
-                <li key={tier.key} className={tier.zero ? styles.scoreTierZero : undefined}>
-                  <div className={styles.scoreTierHeader}>
-                    <span>{t(`home.scoreTiers.${tier.key}`)}</span>
-                    <span className={styles.scoreTierPts}>
-                      {tier.max > 0 ? t('home.upTo', { count: tier.max }) : t('home.zeroPts')}
-                    </span>
-                  </div>
-                  <div className={styles.scoreBarTrack}>
-                    <div
-                      className={styles.scoreBarFill}
-                      style={{ width: `${tier.width}%` }}
-                      aria-hidden="true"
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <p className={styles.scoringFooter}>{t('home.scoringFooter')}</p>
-          </div>
-        </div>
+        <p className={styles.rulesLinkRow}>
+          <button type="button" className="text-link" onClick={() => setView('howToPlay')}>
+            {t('home.viewHowToPlay')}
+          </button>
+        </p>
       </section>
     </div>
   );

@@ -28,6 +28,7 @@
     "connecting": "Connecting to server…",
     "accessPanelAria": "Join or create a game",
     "titlePlateAria": "Plate Word Game",
+    "tagline": "Spot the letters. Race for words. Outscore your friends before time runs out.",
     "nickname": "Nickname",
     "nicknamePlaceholder": "Your name",
     "createGame": "Create Game",
@@ -35,32 +36,79 @@
     "passcodePlaceholder": "6-character code",
     "join": "Join",
     "back": "Back",
-    "howToPlay": "How to play",
-    "intro": "Spot letters on a licence plate and race to find words that use them. Cover more letters and submit faster to score higher.",
-    "steps": {
-      "1": "Create a game and share the passcode, or join with a code from a friend.",
-      "2": "The host sets rounds, timer, and language, then starts the match.",
-      "3": "Each round shows 4 plate letters. Type a word and submit before time runs out.",
-      "4": "After each round, see everyone's best words and scores. Highest total wins."
+    "viewHowToPlay": "How to play — full rules & scoring"
+  },
+  "howToPlay": {
+    "title": "How to play",
+    "back": "← Back to home",
+    "intro": "Inspired by the classic road-trip game: four licence-plate letters appear, and everyone races to find the best word that uses them. More matching letters and a faster submit mean a higher score.",
+    "gettingStarted": {
+      "title": "Getting started",
+      "items": {
+        "1": "Enter a nickname and tap Create Game to host, or Join Game with a friend's 6-character passcode.",
+        "2": "Share the passcode or invite link from the lobby so others can join — no accounts needed.",
+        "3": "Disconnected? Rejoin with the same passcode and nickname to pick up where you left off."
+      }
     },
-    "wordRules": "Word rules",
-    "rules": {
+    "lobby": {
+      "title": "Lobby",
+      "items": {
+        "1": "The host sets the number of rounds, round duration, and dictionary language before starting.",
+        "2": "When ready, the host taps Start Game. You can play solo or with any number of friends."
+      }
+    },
+    "letterPick": {
+      "title": "Plate letters",
+      "items": {
+        "1": "Before each round, the host chooses 4 letters — drawn at random or typed manually.",
+        "2": "After a short countdown, every player sees the same letters at the same time."
+      }
+    },
+    "duringRound": {
+      "title": "During a round",
+      "items": {
+        "1": "Type a valid word containing at least one plate letter and tap Submit. You can submit as many words as you like.",
+        "2": "Only you see whether your word was accepted and how many points it scored. Other players' words stay hidden until the round ends.",
+        "3": "Tap I'm done when you can't find a better word. You won't be able to submit again this round.",
+        "4": "The round ends when the timer runs out, or when every player has tapped I'm done."
+      }
+    },
+    "roundSummary": {
+      "title": "After each round",
+      "items": {
+        "1": "Everyone's best word and score for the round are revealed.",
+        "2": "You see the round leaderboard and the running total across all rounds.",
+        "3": "The host taps Next Round to continue, or End Game on the final round."
+      }
+    },
+    "finalResults": {
+      "title": "End of the game",
+      "items": {
+        "1": "The player with the highest total score wins. Tied players share the win.",
+        "2": "Expand the round breakdown to see every word and score.",
+        "3": "The host can tap Play Again to reset scores and start a new match with the same group."
+      }
+    },
+    "wordRules": {
+      "title": "Word rules",
       "1": "Must be in the dictionary, in base form (no plurals or conjugations).",
       "2": "No proper nouns (names, places, brands).",
       "3": "Must contain at least one of the 4 plate letters."
     },
-    "scoring": "Scoring",
-    "scoringNote": "You need at least <1>2 matching letters</1> to earn points. One matching letter is valid, but scores <2>0</2>.",
-    "scoreTiers": {
-      "ordered": "4 letters in plate order",
-      "fourLetter": "4 letters, any order",
-      "threeLetter": "3 letters",
-      "twoLetter": "2 letters",
-      "oneLetter": "1 letter"
-    },
-    "upTo": "up to {{count}}",
-    "zeroPts": "0 pts",
-    "scoringFooter": "Only your best word per round counts. Points drop as the timer runs down."
+    "scoring": {
+      "title": "Scoring",
+      "note": "You need at least <1>2 matching letters</1> to earn points. One matching letter is valid, but scores <2>0</2>.",
+      "tiers": {
+        "ordered": "4 letters in plate order",
+        "fourLetter": "4 letters, any order",
+        "threeLetter": "3 letters",
+        "twoLetter": "2 letters",
+        "oneLetter": "1 letter"
+      },
+      "upTo": "up to {{count}}",
+      "zeroPts": "0 pts",
+      "footer": "Only your best word per round counts. Points drop as the timer runs down."
+    }
   },
   "lobby": {
     "title": "Lobby",

@@ -28,6 +28,7 @@
     "connecting": "Connessione in corso…",
     "accessPanelAria": "Crea o unisciti a una partita",
     "titlePlateAria": "Plate Word Game",
+    "tagline": "Osserva le lettere. Trova una parola che ne contenga il maggior numero. Batti gli amici prima che scada il tempo.",
     "nickname": "Nickname",
     "nicknamePlaceholder": "Come ti chiami?",
     "createGame": "Crea partita",
@@ -35,32 +36,79 @@
     "passcodePlaceholder": "Codice a 6 caratteri",
     "join": "Entra",
     "back": "Indietro",
-    "howToPlay": "Come si gioca",
-    "intro": "Osserva le lettere della targa e trova parole che le contengono. Lettere e velocità: la combo vincente per scalare la classifica!",
-    "steps": {
-      "1": "Crea una partita e condividi il codice, oppure entra con quello di un amico.",
-      "2": "L'host imposta turni, durata e lingua, poi avvia la sfida.",
-      "3": "A ogni turno compaiono 4 lettere di una targa: scrivi una parola che le contenga e inviala prima che scada il tempo.",
-      "4": "A fine turno vedi le migliori parole e i punteggi di tutti. Che vinca il migliore!"
+    "viewHowToPlay": "Come si gioca — regole e punteggio"
+  },
+  "howToPlay": {
+    "title": "Come si gioca",
+    "back": "← Torna alla home",
+    "intro": "Il classico gioco da viaggio in auto: compaiono quattro lettere di targa e tutti corrono a trovare la parola migliore che le contiene. Più lettere combaci e più invii in fretta, più punti fai.",
+    "gettingStarted": {
+      "title": "Per iniziare",
+      "items": {
+        "1": "Scegli un nickname e tocca Crea partita per ospitare, oppure Unisciti con il codice a 6 caratteri di un amico.",
+        "2": "Condividi il codice o il link di invito dalla lobby — non servono account.",
+        "3": "Se perdi la connessione, rientra con lo stesso codice e nickname per riprendere da dove eri."
+      }
     },
-    "wordRules": "Regole sulle parole",
-    "rules": {
+    "lobby": {
+      "title": "Lobby",
+      "items": {
+        "1": "L'host imposta numero di turni, durata del turno e lingua del dizionario prima di avviare.",
+        "2": "Quando è pronto, l'host tocca Avvia la partita. Puoi giocare da solo o in gruppo."
+      }
+    },
+    "letterPick": {
+      "title": "Lettere della targa",
+      "items": {
+        "1": "Prima di ogni turno, l'host sceglie 4 lettere — a caso o digitandole manualmente.",
+        "2": "Dopo un breve countdown, tutti vedono le stesse lettere contemporaneamente."
+      }
+    },
+    "duringRound": {
+      "title": "Durante il turno",
+      "items": {
+        "1": "Scrivi una parola valida con almeno una lettera della targa e tocca Invia. Puoi inviare quante parole vuoi.",
+        "2": "Solo tu vedi se la parola è accettata e quanti punti vale. Le parole degli altri restano nascoste fino a fine turno.",
+        "3": "Tocca Ho finito quando non trovi una parola migliore. Non potrai più inviare in questo turno.",
+        "4": "Il turno finisce quando scade il timer, oppure quando tutti hanno toccato Ho finito."
+      }
+    },
+    "roundSummary": {
+      "title": "Dopo ogni turno",
+      "items": {
+        "1": "Si rivelano la miglior parola e il punteggio di ogni giocatore.",
+        "2": "Vedi la classifica del turno e il totale cumulativo.",
+        "3": "L'host tocca Prossimo turno per continuare, oppure Termina partita all'ultimo turno."
+      }
+    },
+    "finalResults": {
+      "title": "Fine partita",
+      "items": {
+        "1": "Vince chi ha il punteggio totale più alto. In caso di parità, i vincitori sono ex aequo.",
+        "2": "Apri il dettaglio per turno per vedere ogni parola e punteggio.",
+        "3": "L'host può toccare Gioca di nuovo per azzerare i punteggi e ripartire con lo stesso gruppo."
+      }
+    },
+    "wordRules": {
+      "title": "Regole sulle parole",
       "1": "Dev'essere nel dizionario, in forma base (niente plurali o coniugazioni).",
       "2": "Niente nomi propri: persone, luoghi o marchi.",
       "3": "Deve contenere almeno una delle 4 lettere della targa."
     },
-    "scoring": "Punteggio",
-    "scoringNote": "Servono almeno <1>2 lettere corrispondenti</1> per fare punti. Con una sola lettera la parola è valida, ma vale <2>0</2> punti.",
-    "scoreTiers": {
-      "ordered": "4 lettere nell'ordine della targa",
-      "fourLetter": "4 lettere in ordine sparso",
-      "threeLetter": "3 lettere",
-      "twoLetter": "2 lettere",
-      "oneLetter": "1 lettera"
-    },
-    "upTo": "fino a {{count}}",
-    "zeroPts": "0 pt",
-    "scoringFooter": "Conta solo la parola migliore di ogni turno. Più aspetti, meno punti ottieni."
+    "scoring": {
+      "title": "Punteggio",
+      "note": "Servono almeno <1>2 lettere corrispondenti</1> per fare punti. Con una sola lettera la parola è valida, ma vale <2>0</2> punti.",
+      "tiers": {
+        "ordered": "4 lettere nell'ordine della targa",
+        "fourLetter": "4 lettere in ordine sparso",
+        "threeLetter": "3 lettere",
+        "twoLetter": "2 lettere",
+        "oneLetter": "1 lettera"
+      },
+      "upTo": "fino a {{count}}",
+      "zeroPts": "0 pt",
+      "footer": "Conta solo la parola migliore di ogni turno. Più aspetti, meno punti ottieni."
+    }
   },
   "lobby": {
     "title": "Lobby",
