@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Language } from '@plate-game/shared';
-import { normalizeWord } from '@plate-game/shared';
+import { isOrderedMatch, normalizeWord } from '@plate-game/shared';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -28,6 +28,22 @@ export class DictionaryService {
 
   size(language: Language): number {
     return this.dictionaries.get(language)?.size ?? 0;
+  }
+
+  findOrderedMatch(plateLetters: string[], language: Language, minLength = 5): string | null {
+    const dict = this.dictionaries.get(language);
+    if (!dict || plateLetters.length !== 4) return null;
+
+    let shortest: string | null = null;
+    for (const word of dict) {
+      if (word.length < minLength) continue;
+      if (isOrderedMatch(word, plateLetters)) {
+        if (!shortest || word.length < shortest.length) {
+          shortest = word;
+        }
+      }
+    }
+    return shortest;
   }
 }
 

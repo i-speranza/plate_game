@@ -288,6 +288,9 @@ export class SessionStore {
     if (settings.language !== undefined) {
       session.settings.language = settings.language;
     }
+    if (settings.revealPossibleSolution !== undefined) {
+      session.settings.revealPossibleSolution = settings.revealPossibleSolution;
+    }
     this.touch(session);
   }
 
@@ -336,7 +339,10 @@ export class SessionStore {
     this.touch(session);
   }
 
-  finalizeRound(session: GameSession): RoundResult {
+  finalizeRound(
+    session: GameSession,
+    solutionReveal?: { revealedSolution?: string; noOrderedSolution?: boolean },
+  ): RoundResult {
     const submissions: Record<string, Submission | null> = {};
     const roundScores: Record<string, number> = {};
 
@@ -352,6 +358,8 @@ export class SessionStore {
       letters: [...session.letters],
       submissions,
       roundScores,
+      ...(solutionReveal?.revealedSolution ? { revealedSolution: solutionReveal.revealedSolution } : {}),
+      ...(solutionReveal?.noOrderedSolution ? { noOrderedSolution: true } : {}),
     };
 
     session.roundResults.push(result);

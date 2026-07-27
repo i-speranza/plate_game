@@ -72,12 +72,31 @@ function allConnectedGaveUp(session: GameSession, store: SessionStore): boolean 
   return connected.length > 0 && connected.every((p) => p.gaveUp);
 }
 
+function anyPlayerFoundOrderedMatch(session: GameSession): boolean {
+  for (const player of session.players.values()) {
+    if (player.bestSubmission?.tier === 'ordered') return true;
+  }
+  return false;
+}
+
+function computeSolutionReveal(session: GameSession): {
+  revealedSolution?: string;
+  noOrderedSolution?: boolean;
+} {
+  if (!session.settings.revealPossibleSolution) return {};
+  if (anyPlayerFoundOrderedMatch(session)) return {};
+  const solution = dictionaryService.findOrderedMatch(session.letters, session.settings.language);
+  if (solution) return { revealedSolution: solution };
+  return { noOrderedSolution: true };
+}
+
 function endRound(io: Server, session: GameSession, store: SessionStore): void {
   if (session.phase !== 'roundActive') return;
 
   store.clearTimers(session);
   session.phase = 'roundSummary';
-  const result = store.finalizeRound(session);
+  const solutionReveal = computeSolutionReveal(session);
+  const result = store.finalizeRound(session, solutionReveal);
 
   io.to(session.passcode).emit('round:end', {
     result,

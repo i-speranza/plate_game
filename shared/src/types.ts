@@ -22,6 +22,7 @@ export interface MatchSettings {
   rounds: number;
   durationSec: number;
   language: Language;
+  revealPossibleSolution: boolean;
 }
 
 export interface Player {
@@ -46,6 +47,10 @@ export interface RoundResult {
   letters: string[];
   submissions: Record<string, Submission | null>;
   roundScores: Record<string, number>;
+  /** Shown at round end when enabled and no player found an ordered match. */
+  revealedSolution?: string;
+  /** Shown when reveal is enabled but the dictionary has no ordered match. */
+  noOrderedSolution?: boolean;
 }
 
 export interface LeaderboardEntry {
@@ -97,6 +102,7 @@ export const DEFAULT_SETTINGS: MatchSettings = {
   rounds: 5,
   durationSec: 45,
   language: 'it',
+  revealPossibleSolution: false,
 };
 
 export const DURATION_PRESETS = [30, 45, 60, 90, 120] as const;

@@ -94,6 +94,15 @@ export function LobbyScreen({ snapshot, isHost, onUpdateSettings, onStart }: Lob
                 onChange={handleLanguageChange}
               />
             </div>
+            <div className={styles.checkboxRow}>
+              <input
+                id="revealPossibleSolution"
+                type="checkbox"
+                checked={snapshot.settings.revealPossibleSolution ?? false}
+                onChange={(e) => onUpdateSettings({ revealPossibleSolution: e.target.checked })}
+              />
+              <label htmlFor="revealPossibleSolution">{t('lobby.revealPossibleSolution')}</label>
+            </div>
           </div>
           <button className="btn btn-primary" onClick={onStart} style={{ marginTop: '1rem', width: '100%' }}>
             {t('lobby.startGame')}

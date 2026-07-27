@@ -83,6 +83,17 @@ export function SummaryScreen({ snapshot, isHost, playerId, onNext, onEnd }: Sum
       <Leaderboard title={t('summary.roundScores')} entries={snapshot.roundLeaderboard} highlightId={playerId ?? undefined} />
       <Leaderboard title={t('summary.totalScores')} entries={snapshot.cumulativeLeaderboard} highlightId={playerId ?? undefined} />
 
+      {latestResult.revealedSolution && (
+        <div className={styles.solutionCard}>
+          <p className={styles.solutionLabel}>{t('summary.possibleSolution')}</p>
+          <p className={styles.solutionWord}>{latestResult.revealedSolution}</p>
+        </div>
+      )}
+
+      {latestResult.noOrderedSolution && (
+        <p className={styles.noOrderedSolution}>{t('summary.noOrderedSolution')}</p>
+      )}
+
       {isHost ? (
         <div className={styles.hostActions}>
           {!isFinalRound && (

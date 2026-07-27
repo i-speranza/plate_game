@@ -39,6 +39,14 @@ export function FinalScreen({ snapshot, isHost, playerId, onPlayAgain, onLeave }
             <div key={round.roundNumber} className="card">
               <h3>{t('final.roundTitle', { round: round.roundNumber })}</h3>
               <p className={styles.letters}>{round.letters.join(' ')}</p>
+              {round.revealedSolution && (
+                <p className={styles.revealedSolution}>
+                  {t('summary.possibleSolution')}: {round.revealedSolution}
+                </p>
+              )}
+              {round.noOrderedSolution && (
+                <p className={styles.revealedSolution}>{t('summary.noOrderedSolution')}</p>
+              )}
               <ul className={styles.roundScores}>
                 {snapshot.players.map((p) => (
                   <li key={p.id}>

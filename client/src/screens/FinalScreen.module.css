@@ -27,6 +27,12 @@
   letter-spacing: 0.2em;
 }
 
+.revealedSolution {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
 .roundScores {
   list-style: none;
   margin: 0.5rem 0 0;

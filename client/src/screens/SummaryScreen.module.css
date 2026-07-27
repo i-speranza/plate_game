@@ -56,6 +56,34 @@
   gap: 0.75rem;
 }
 
+.solutionCard {
+  padding: 1rem;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-muted);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.solutionLabel {
+  margin: 0 0 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.solutionWord {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+}
+
+.noOrderedSolution {
+  margin: 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
 @keyframes dropIn {
   from {
     opacity: 0;
