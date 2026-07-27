@@ -1,4 +1,5 @@
 import { normalizeLetter, normalizeWord } from './normalize.js';
+import { MIN_LETTER_COUNT } from './gameConfig.js';
 
 export function countDistinctPlateLetters(word: string, plateLetters: string[]): number {
   const normalizedWord = normalizeWord(word);
@@ -41,7 +42,7 @@ export function getMatchingPlateIndices(word: string, plateLetters: string[]): b
 }
 
 export function isOrderedMatch(word: string, plateLetters: string[]): boolean {
-  if (plateLetters.length !== 4) return false;
+  if (plateLetters.length < MIN_LETTER_COUNT) return false;
 
   const normalizedWord = normalizeWord(word);
   let searchFrom = 0;

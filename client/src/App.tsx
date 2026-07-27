@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DEFAULT_LETTER_COUNT } from '@plate-game/shared';
 import { setUiLanguage } from './i18n';
 import { translateError } from './translateError';
 import { useGameSocket } from './useGameSocket';
@@ -47,7 +48,9 @@ export default function App() {
 
   const isHost = snapshot ? snapshot.hostId === playerId : false;
   const me = snapshot?.players.find((p) => p.id === playerId);
-  const errorMessage = error ? translateError(t, error) : null;
+  const errorMessage = error
+    ? translateError(t, error, snapshot ? { count: snapshot.settings.letterCount ?? DEFAULT_LETTER_COUNT } : undefined)
+    : null;
 
   if (!snapshot) {
     return (
@@ -81,6 +84,7 @@ export default function App() {
           isHost={isHost}
           roundNumber={snapshot.currentRound}
           totalRounds={snapshot.totalRounds}
+          letterCount={snapshot.settings.letterCount ?? DEFAULT_LETTER_COUNT}
           onSetLetters={(mode, letters) => socket.emit('round:setLetters', { mode, letters })}
         />
       );

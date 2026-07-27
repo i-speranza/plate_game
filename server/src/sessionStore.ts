@@ -9,7 +9,7 @@ import type {
   SessionSnapshot,
   Submission,
 } from '@plate-game/shared';
-import { DEFAULT_SETTINGS, ROUND_COUNTDOWN_MS } from '@plate-game/shared';
+import { DEFAULT_SETTINGS, MAX_LETTER_COUNT, MIN_LETTER_COUNT, ROUND_COUNTDOWN_MS } from '@plate-game/shared';
 
 const PASSCODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000;
@@ -290,6 +290,12 @@ export class SessionStore {
     }
     if (settings.revealPossibleSolution !== undefined) {
       session.settings.revealPossibleSolution = settings.revealPossibleSolution;
+    }
+    if (settings.letterCount !== undefined) {
+      session.settings.letterCount = Math.min(
+        MAX_LETTER_COUNT,
+        Math.max(MIN_LETTER_COUNT, settings.letterCount),
+      );
     }
     this.touch(session);
   }

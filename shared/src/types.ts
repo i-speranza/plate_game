@@ -12,6 +12,8 @@ export type LetterMode = 'random' | 'manual';
 
 export type ScoreTier =
   | 'ordered'
+  | 'sixLetter'
+  | 'fiveLetter'
   | 'fourLetter'
   | 'threeLetter'
   | 'twoLetter'
@@ -23,6 +25,7 @@ export interface MatchSettings {
   durationSec: number;
   language: Language;
   revealPossibleSolution: boolean;
+  letterCount: number;
 }
 
 export interface Player {
@@ -103,6 +106,7 @@ export const DEFAULT_SETTINGS: MatchSettings = {
   durationSec: 45,
   language: 'it',
   revealPossibleSolution: false,
+  letterCount: 4,
 };
 
 export const DURATION_PRESETS = [30, 45, 60, 90, 120] as const;

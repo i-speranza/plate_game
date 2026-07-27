@@ -85,13 +85,17 @@ export function SummaryScreen({ snapshot, isHost, playerId, onNext, onEnd }: Sum
 
       {latestResult.revealedSolution && (
         <div className={styles.solutionCard}>
-          <p className={styles.solutionLabel}>{t('summary.possibleSolution')}</p>
+          <p className={styles.solutionLabel}>
+            {t('summary.possibleSolution', { count: snapshot.settings.letterCount })}
+          </p>
           <p className={styles.solutionWord}>{latestResult.revealedSolution}</p>
         </div>
       )}
 
       {latestResult.noOrderedSolution && (
-        <p className={styles.noOrderedSolution}>{t('summary.noOrderedSolution')}</p>
+        <p className={styles.noOrderedSolution}>
+          {t('summary.noOrderedSolution', { count: snapshot.settings.letterCount })}
+        </p>
       )}
 
       {isHost ? (

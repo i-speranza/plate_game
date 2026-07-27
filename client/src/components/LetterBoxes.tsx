@@ -2,10 +2,9 @@ import { useRef, type ClipboardEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LetterBoxes.module.css';
 
-const LETTER_COUNT = 4;
-
 interface LetterBoxesProps {
   value: string;
+  count?: number;
   editable?: boolean;
   animate?: boolean;
   highlightedIndices?: boolean[];
@@ -13,12 +12,13 @@ interface LetterBoxesProps {
   inputId?: string;
 }
 
-function normalizeLetters(raw: string): string {
-  return raw.replace(/[^a-zA-Z]/g, '').slice(0, LETTER_COUNT).toUpperCase();
+function normalizeLetters(raw: string, letterCount: number): string {
+  return raw.replace(/[^a-zA-Z]/g, '').slice(0, letterCount).toUpperCase();
 }
 
 export function LetterBoxes({
   value,
+  count,
   editable = false,
   animate = false,
   highlightedIndices,
@@ -27,7 +27,8 @@ export function LetterBoxes({
 }: LetterBoxesProps) {
   const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const chars = Array.from({ length: LETTER_COUNT }, (_, i) => value[i] ?? '');
+  const letterCount = count ?? Math.max(value.length, 1);
+  const chars = Array.from({ length: letterCount }, (_, i) => value[i] ?? '');
 
   const focusAt = (index: number) => {
     inputRefs.current[index]?.focus();
@@ -35,16 +36,16 @@ export function LetterBoxes({
   };
 
   const applyValue = (next: string, focusIndex?: number) => {
-    const normalized = normalizeLetters(next);
+    const normalized = normalizeLetters(next, letterCount);
     onChange?.(normalized);
     if (focusIndex !== undefined) {
-      const target = Math.min(Math.max(focusIndex, 0), LETTER_COUNT - 1);
+      const target = Math.min(Math.max(focusIndex, 0), letterCount - 1);
       requestAnimationFrame(() => focusAt(target));
     }
   };
 
   const handleChange = (index: number, nextChar: string) => {
-    const letter = normalizeLetters(nextChar).slice(-1);
+    const letter = normalizeLetters(nextChar, letterCount).slice(-1);
     const next = chars.slice();
     next[index] = letter;
     applyValue(next.join(''), letter ? index + 1 : index);
@@ -65,7 +66,7 @@ export function LetterBoxes({
       return;
     }
 
-    if (e.key === 'ArrowRight' && index < LETTER_COUNT - 1) {
+    if (e.key === 'ArrowRight' && index < letterCount - 1) {
       e.preventDefault();
       focusAt(index + 1);
     }
@@ -73,14 +74,14 @@ export function LetterBoxes({
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const pasted = normalizeLetters(e.clipboardData.getData('text'));
+    const pasted = normalizeLetters(e.clipboardData.getData('text'), letterCount);
     if (!pasted) return;
-    applyValue(pasted, Math.min(pasted.length, LETTER_COUNT - 1));
+    applyValue(pasted, Math.min(pasted.length, letterCount - 1));
   };
 
   return (
     <div
-      className={`${styles.row} ${animate ? styles.animate : ''}`}
+      className={`${styles.row} ${animate ? styles.animate : ''} ${letterCount >= 6 ? styles.compact : ''}`}
       role={editable ? undefined : 'group'}
       aria-label={editable ? undefined : t('aria.plateLetters', { value })}
     >

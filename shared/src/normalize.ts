@@ -12,8 +12,8 @@ export function normalizeLetter(letter: string): string {
   return stripAccents(letter.trim().toUpperCase());
 }
 
-export function isValidManualLetters(letters: string, language: Language): boolean {
-  if (letters.length !== 4) return false;
+export function isValidManualLetters(letters: string, language: Language, expectedCount: number): boolean {
+  if (letters.length !== expectedCount) return false;
   const alphabet = new Set(getAlphabetLetters(language));
   const normalized = stripAccents(letters.toUpperCase());
   return [...normalized].every((ch) => alphabet.has(ch));

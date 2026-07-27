@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { MatchSettings, SessionSnapshot } from '@plate-game/shared';
-import { DURATION_PRESETS } from '@plate-game/shared';
+import { DURATION_PRESETS, DEFAULT_LETTER_COUNT, LETTER_COUNT_OPTIONS } from '@plate-game/shared';
 import { setUiLanguage } from '../i18n';
 import { LanguageSelect } from '../components/LanguageSelect';
 import { PlateTile } from '../components/PlateTile';
@@ -87,6 +87,20 @@ export function LobbyScreen({ snapshot, isHost, onUpdateSettings, onStart }: Lob
               </select>
             </div>
             <div>
+              <label htmlFor="letterCount">{t('lobby.letterCount')}</label>
+              <select
+                id="letterCount"
+                value={snapshot.settings.letterCount ?? DEFAULT_LETTER_COUNT}
+                onChange={(e) => onUpdateSettings({ letterCount: Number(e.target.value) })}
+              >
+                {LETTER_COUNT_OPTIONS.map((n) => (
+                  <option key={n} value={n}>
+                    {t('lobby.letterCountOption', { count: n })}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label htmlFor="language">{t('language.label')}</label>
               <LanguageSelect
                 id="language"
@@ -101,7 +115,11 @@ export function LobbyScreen({ snapshot, isHost, onUpdateSettings, onStart }: Lob
                 checked={snapshot.settings.revealPossibleSolution ?? false}
                 onChange={(e) => onUpdateSettings({ revealPossibleSolution: e.target.checked })}
               />
-              <label htmlFor="revealPossibleSolution">{t('lobby.revealPossibleSolution')}</label>
+              <label htmlFor="revealPossibleSolution">
+                {t('lobby.revealPossibleSolution', {
+                  count: snapshot.settings.letterCount ?? DEFAULT_LETTER_COUNT,
+                })}
+              </label>
             </div>
           </div>
           <button className="btn btn-primary" onClick={onStart} style={{ marginTop: '1rem', width: '100%' }}>

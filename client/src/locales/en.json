@@ -19,7 +19,7 @@
     "INVALID_NICKNAME": "Nickname required",
     "INVALID_PASSCODE": "Passcode required",
     "SESSION_NOT_FOUND": "Session not found",
-    "INVALID_LETTERS": "Enter exactly 4 valid letters",
+    "INVALID_LETTERS": "Enter exactly {{count}} valid letters",
     "ENTER_WORD": "Enter a word",
     "NOT_IN_DICTIONARY": "Not in dictionary",
     "MUST_CONTAIN_PLATE_LETTER": "Must contain a plate letter"
@@ -53,7 +53,7 @@
     "lobby": {
       "title": "Lobby",
       "items": {
-        "1": "The host sets the number of rounds, round duration, and dictionary language before starting.",
+        "1": "The host sets the number of rounds, round duration, dictionary language, and letter count (3–6) before starting.",
         "2": "When ready, the host taps Start Game. You can play solo or with any number of friends."
       }
     },
@@ -101,6 +101,8 @@
       "tiers": {
         "ordered": "4 letters in plate order",
         "fourLetter": "4 letters, any order",
+        "fiveLetter": "5 letters, any order",
+        "sixLetter": "6 letters, any order",
         "threeLetter": "3 letters",
         "twoLetter": "2 letters",
         "oneLetter": "1 letter"
@@ -119,15 +121,17 @@
     "rounds": "Rounds (1–20)",
     "roundDuration": "Round duration",
     "durationSeconds": "{{count}}s",
+    "letterCount": "Letters per round",
+    "letterCountOption": "{{count}} letters",
     "startGame": "Start Game",
-    "revealPossibleSolution": "Reveal a possible solution at round end if nobody finds all 4 letters in order"
+    "revealPossibleSolution": "Reveal a possible solution at round end if nobody finds all {{count}} letters in order"
   },
   "letterPick": {
     "chooseLetters": "Choose plate letters",
     "hostChoosing": "Host is choosing letters…",
     "random": "Random",
     "manual": "Manual",
-    "enterFourLetters": "Enter 4 letters",
+    "enterLetters": "Enter {{count}} letters",
     "confirmLetters": "Start the round!"
   },
   "countdown": {
@@ -148,8 +152,8 @@
     "nextRound": "Next Round",
     "viewFinalResults": "View Final Results",
     "endGame": "End Game",
-    "possibleSolution": "Possible solution (4 letters in order)",
-    "noOrderedSolution": "No dictionary word has all 4 letters in order."
+    "possibleSolution": "Possible solution ({{count}} letters in order)",
+    "noOrderedSolution": "No dictionary word has all {{count}} letters in order."
   },
   "final": {
     "winner": "Winner!",

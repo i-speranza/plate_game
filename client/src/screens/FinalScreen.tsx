@@ -41,11 +41,13 @@ export function FinalScreen({ snapshot, isHost, playerId, onPlayAgain, onLeave }
               <p className={styles.letters}>{round.letters.join(' ')}</p>
               {round.revealedSolution && (
                 <p className={styles.revealedSolution}>
-                  {t('summary.possibleSolution')}: {round.revealedSolution}
+                  {t('summary.possibleSolution', { count: snapshot.settings.letterCount })}: {round.revealedSolution}
                 </p>
               )}
               {round.noOrderedSolution && (
-                <p className={styles.revealedSolution}>{t('summary.noOrderedSolution')}</p>
+                <p className={styles.revealedSolution}>
+                  {t('summary.noOrderedSolution', { count: snapshot.settings.letterCount })}
+                </p>
               )}
               <ul className={styles.roundScores}>
                 {snapshot.players.map((p) => (

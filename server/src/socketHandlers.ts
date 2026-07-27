@@ -18,10 +18,10 @@ interface ClientContext {
 
 const clientContexts = new Map<string, ClientContext>();
 
-function randomLetters(language: Language): string[] {
+function randomLetters(language: Language, count: number): string[] {
   const alphabet = ALPHABETS[language];
   const letters: string[] = [];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < count; i++) {
     letters.push(alphabet[Math.floor(Math.random() * alphabet.length)]);
   }
   return letters;
@@ -214,12 +214,15 @@ export function registerSocketHandlers(io: Server, store: SessionStore): void {
         if (!session || session.hostId !== ctx.playerId || session.phase !== 'letterPick') return;
 
         if (mode === 'random') {
-          session.letters = randomLetters(session.settings.language);
+          session.letters = randomLetters(session.settings.language, session.settings.letterCount);
         } else {
-          if (!letters || !isValidManualLetters(letters, session.settings.language)) {
+          if (
+            !letters ||
+            !isValidManualLetters(letters, session.settings.language, session.settings.letterCount)
+          ) {
             socket.emit('error', {
               code: 'INVALID_LETTERS',
-              message: 'Enter exactly 4 valid letters',
+              message: `Enter exactly ${session.settings.letterCount} valid letters`,
             });
             return;
           }

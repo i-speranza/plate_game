@@ -9,6 +9,7 @@ interface LetterPickScreenProps {
   isHost: boolean;
   roundNumber: number;
   totalRounds: number;
+  letterCount: number;
   onSetLetters: (mode: 'random' | 'manual', letters?: string) => void;
 }
 
@@ -16,16 +17,21 @@ export function LetterPickScreen({
   isHost,
   roundNumber,
   totalRounds,
+  letterCount,
   onSetLetters,
 }: LetterPickScreenProps) {
   const { t } = useTranslation();
   const [mode, setMode] = useState<'random' | 'manual'>('random');
   const [letters, setLetters] = useState('');
 
+  useEffect(() => {
+    setLetters('');
+  }, [letterCount]);
+
   const handleConfirm = () => {
     if (mode === 'random') {
       onSetLetters('random');
-    } else if (letters.length === 4) {
+    } else if (letters.length === letterCount) {
       onSetLetters('manual', letters.toUpperCase());
     }
   };
@@ -56,10 +62,11 @@ export function LetterPickScreen({
 
           {mode === 'manual' && (
             <div className={styles.manualInput}>
-              <label htmlFor="letter-0">{t('letterPick.enterFourLetters')}</label>
+              <label htmlFor="letter-0">{t('letterPick.enterLetters', { count: letterCount })}</label>
               <LetterBoxes
                 inputId="letter-0"
                 value={letters}
+                count={letterCount}
                 editable
                 onChange={setLetters}
               />
@@ -69,7 +76,7 @@ export function LetterPickScreen({
           <button
             className="btn btn-primary"
             onClick={handleConfirm}
-            disabled={mode === 'manual' && letters.length !== 4}
+            disabled={mode === 'manual' && letters.length !== letterCount}
             style={{ width: '100%', marginTop: '1rem' }}
           >
             {t('letterPick.confirmLetters')}

@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from 'react-i18next';
-import { SCORE_CONFIG } from '@plate-game/shared';
+import { DEFAULT_LETTER_COUNT, getDisplayScoreBands } from '@plate-game/shared';
 import styles from './HowToPlayScreen.module.css';
 
 interface HowToPlayScreenProps {
@@ -17,8 +17,9 @@ const SECTION_KEYS = [
 
 const RULE_KEYS = ['1', '2', '3'] as const;
 
-const topMaxScore = SCORE_CONFIG.bands[0].maxScore;
-const SCORE_TIERS = SCORE_CONFIG.bands.map((band) => ({
+const displayBands = getDisplayScoreBands(DEFAULT_LETTER_COUNT);
+const topMaxScore = displayBands[0]?.maxScore ?? 1;
+const SCORE_TIERS = displayBands.map((band) => ({
   key: band.tier,
   max: band.maxScore,
   width: band.maxScore === 0 ? 8 : Math.round((band.maxScore / topMaxScore) * 100),

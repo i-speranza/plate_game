@@ -65,6 +65,36 @@ input.box {
   animation-delay: 180ms;
 }
 
+.animate .box:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.animate .box:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+.compact {
+  gap: 0.35rem;
+}
+
+.compact .box {
+  width: 2.75rem;
+  height: 3.25rem;
+  font-size: 1.65rem;
+}
+
+@media (max-width: 380px) {
+  .compact {
+    gap: 0.25rem;
+  }
+
+  .compact .box {
+    width: 2.5rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+}
+
 @keyframes flipIn {
   0% {
     transform: rotateX(-90deg);

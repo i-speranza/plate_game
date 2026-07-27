@@ -32,7 +32,7 @@ export class DictionaryService {
 
   findOrderedMatch(plateLetters: string[], language: Language, minLength = 5): string | null {
     const dict = this.dictionaries.get(language);
-    if (!dict || plateLetters.length !== 4) return null;
+    if (!dict || plateLetters.length < 3) return null;
 
     let shortest: string | null = null;
     for (const word of dict) {
