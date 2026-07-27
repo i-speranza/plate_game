@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { SubmitResult } from '@plate-game/shared';
+import { getMatchingPlateIndices, isOrderedMatch } from '@plate-game/shared';
 import { PlateTile } from '../components/PlateTile';
 import { TimerBar } from '../components/TimerBar';
+import { fireConfettiBurst } from '../confettiBurst.ts';
 import { translateError } from '../translateError.ts';
 import styles from './RoundScreen.module.css';
+
+const FEEDBACK_MS = 1500;
 
 interface RoundScreenProps {
   letters: string[];
@@ -34,34 +38,47 @@ export function RoundScreen({
   const { t } = useTranslation();
   const [word, setWord] = useState('');
   const [flash, setFlash] = useState<'success' | 'error' | null>(null);
+  const [highlightedIndices, setHighlightedIndices] = useState<boolean[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const lastSubmittedWordRef = useRef('');
 
   useEffect(() => {
     if (!submitResult) return;
 
     if (submitResult.valid) {
+      const submittedWord = lastSubmittedWordRef.current;
       setFlash('success');
       setWord('');
+      setHighlightedIndices(getMatchingPlateIndices(submittedWord, letters));
+
+      if (isOrderedMatch(submittedWord, letters)) {
+        fireConfettiBurst();
+      }
+
       const timer = setTimeout(() => {
         setFlash(null);
+        setHighlightedIndices(null);
         onClearFeedback();
         inputRef.current?.focus();
-      }, 1000);
+      }, FEEDBACK_MS);
       return () => clearTimeout(timer);
     }
 
     setFlash('error');
+    setHighlightedIndices(null);
     const timer = setTimeout(() => {
       setFlash(null);
       onClearFeedback();
-    }, 1000);
+    }, FEEDBACK_MS);
     return () => clearTimeout(timer);
-  }, [submitResult, onClearFeedback]);
+  }, [submitResult, onClearFeedback, letters]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!word.trim() || gaveUp) return;
-    onSubmit(word.trim());
+    const trimmed = word.trim();
+    if (!trimmed || gaveUp) return;
+    lastSubmittedWordRef.current = trimmed;
+    onSubmit(trimmed);
   };
 
   return (
@@ -71,7 +88,11 @@ export function RoundScreen({
         <p className={styles.roundInfo}>
           {t('common.roundOf', { current: roundNumber, total: totalRounds })}
         </p>
-        <PlateTile text={letters.join(' ')} animate />
+        <PlateTile
+          text={letters.join(' ')}
+          animate
+          highlightedIndices={highlightedIndices ?? undefined}
+        />
         <form onSubmit={handleSubmit} className={styles.form}>
           <input
             ref={inputRef}
@@ -91,16 +112,9 @@ export function RoundScreen({
         </form>
 
         <div className={styles.feedbackArea}>
-          {submitResult?.valid &&
-            flash === 'success' &&
-            submitResult.score !== undefined &&
-            submitResult.matchCount !== undefined && (
+          {submitResult?.valid && flash === 'success' && submitResult.score !== undefined && (
             <p className={styles.feedbackSuccess}>
-              {t('round.scoreFeedback', {
-                score: submitResult.score,
-                matchCount: submitResult.matchCount,
-                count: submitResult.matchCount,
-              })}
+              {t('round.scoreFeedback', { score: submitResult.score })}
             </p>
           )}
           {submitResult && !submitResult.valid && submitResult.reason && (

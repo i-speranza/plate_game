@@ -6,14 +6,22 @@ interface PlateTileProps {
   text: string;
   variant?: 'letters' | 'passcode';
   animate?: boolean;
+  highlightedIndices?: boolean[];
 }
 
-export function PlateTile({ text, variant = 'letters', animate = false }: PlateTileProps) {
+export function PlateTile({
+  text,
+  variant = 'letters',
+  animate = false,
+  highlightedIndices,
+}: PlateTileProps) {
   const { t } = useTranslation();
 
   if (variant === 'letters') {
     const letters = text.split('').filter((c) => c.trim()).join('');
-    return <LetterBoxes value={letters} animate={animate} />;
+    return (
+      <LetterBoxes value={letters} animate={animate} highlightedIndices={highlightedIndices} />
+    );
   }
 
   return (

@@ -8,6 +8,7 @@ interface LetterBoxesProps {
   value: string;
   editable?: boolean;
   animate?: boolean;
+  highlightedIndices?: boolean[];
   onChange?: (value: string) => void;
   inputId?: string;
 }
@@ -20,6 +21,7 @@ export function LetterBoxes({
   value,
   editable = false,
   animate = false,
+  highlightedIndices,
   onChange,
   inputId,
 }: LetterBoxesProps) {
@@ -82,8 +84,11 @@ export function LetterBoxes({
       role={editable ? undefined : 'group'}
       aria-label={editable ? undefined : t('aria.plateLetters', { value })}
     >
-      {chars.map((char, index) =>
-        editable ? (
+      {chars.map((char, index) => {
+        const highlighted = highlightedIndices?.[index] ?? false;
+        const boxClass = `${styles.box}${highlighted ? ` ${styles.highlighted}` : ''}`;
+
+        return editable ? (
           <input
             key={index}
             ref={(el) => {
@@ -101,15 +106,15 @@ export function LetterBoxes({
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={handlePaste}
             onFocus={(e) => e.target.select()}
-            className={styles.box}
+            className={boxClass}
             aria-label={t('aria.letterN', { n: index + 1 })}
           />
         ) : (
-          <div key={index} className={styles.box} aria-hidden={!char}>
+          <div key={index} className={boxClass} aria-hidden={!char}>
             {char}
           </div>
-        ),
-      )}
+        );
+      })}
     </div>
   );
 }

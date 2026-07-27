@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { countDistinctPlateLetters, isOrderedMatch } from './letterMatch.js';
+import {
+  countDistinctPlateLetters,
+  getMatchingPlateIndices,
+  isOrderedMatch,
+} from './letterMatch.js';
 import { SCORE_CONFIG } from './scoringConfig.js';
 import { calculateScore, determineTier, scoreWord } from './scoring.js';
 
@@ -30,6 +34,18 @@ describe('letter matching', () => {
     expect(isOrderedMatch('CURVARD', plate)).toBe(true);
     expect(isOrderedMatch('CRACCAD', plate)).toBe(true);
     expect(isOrderedMatch('DRACENA', plate)).toBe(false);
+  });
+
+  it('returns which plate letters matched', () => {
+    expect(getMatchingPlateIndices('CARO', plate)).toEqual([true, true, true, false]);
+    expect(getMatchingPlateIndices('CURVARD', plate)).toEqual([true, true, true, true]);
+  });
+
+  it('handles duplicate plate letters when resolving matches', () => {
+    const duplicatePlate = ['R', 'L', 'R', 'P'];
+
+    expect(getMatchingPlateIndices('ALLORA', duplicatePlate)).toEqual([true, true, false, false]);
+    expect(getMatchingPlateIndices('PARLARE', duplicatePlate)).toEqual([true, true, true, true]);
   });
 });
 

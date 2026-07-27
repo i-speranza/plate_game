@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@plate-game/shared": "*",
+    "canvas-confetti": "^1.9.4",
     "i18next": "^26.3.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -17,6 +18,7 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
