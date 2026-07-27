@@ -41,7 +41,7 @@
   "howToPlay": {
     "title": "Come si gioca",
     "back": "← Torna alla home",
-    "intro": "Il classico gioco da viaggio in auto: compaiono quattro lettere di targa e tutti corrono a trovare la parola migliore che le contiene. Più lettere combaci e più invii in fretta, più punti fai.",
+    "intro": "Il classico gioco da viaggio in auto: compaiono lettere di targa e tutti corrono a trovare la parola migliore che le contiene. Più lettere combaci e più invii in fretta, più punti fai.",
     "gettingStarted": {
       "title": "Per iniziare",
       "items": {
@@ -60,7 +60,7 @@
     "letterPick": {
       "title": "Lettere della targa",
       "items": {
-        "1": "Prima di ogni turno, l'host sceglie 4 lettere — a caso o digitandole manualmente.",
+        "1": "Prima di ogni turno, l'host sceglie le lettere — a caso o digitandole manualmente.",
         "2": "Dopo un breve countdown, tutti vedono le stesse lettere contemporaneamente."
       }
     },
@@ -93,23 +93,20 @@
       "title": "Regole sulle parole",
       "1": "Dev'essere nel dizionario, in forma base (niente plurali o coniugazioni).",
       "2": "Niente nomi propri: persone, luoghi o marchi.",
-      "3": "Deve contenere almeno una delle 4 lettere della targa."
+      "3": "Deve contenere almeno una lettera della targa."
     },
     "scoring": {
       "title": "Punteggio",
       "note": "Servono almeno <1>2 lettere corrispondenti</1> per fare punti. Con una sola lettera la parola è valida, ma vale <2>0</2> punti.",
       "tiers": {
-        "ordered": "4 lettere nell'ordine della targa",
-        "fourLetter": "4 lettere in ordine sparso",
-        "fiveLetter": "5 lettere in ordine sparso",
-        "sixLetter": "6 lettere in ordine sparso",
-        "threeLetter": "3 lettere",
-        "twoLetter": "2 lettere",
-        "oneLetter": "1 lettera"
+        "ordered": "Tutte le lettere nell'ordine della targa"
       },
+      "lettersAnyOrder": "{{count}} lettere in ordine sparso",
+      "letterCount_one": "{{count}} lettera",
+      "letterCount_other": "{{count}} lettere",
       "upTo": "fino a {{count}}",
       "zeroPts": "0 pt",
-      "footer": "Conta solo la parola migliore di ogni turno. Più aspetti, meno punti ottieni."
+      "footer": "Conta solo la parola migliore di ogni turno. Più aspetti, meno punti ottieni. L'host sceglie 3–6 lettere per partita; più lettere significano punteggi massimi più alti."
     }
   },
   "lobby": {

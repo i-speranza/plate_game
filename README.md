@@ -1,6 +1,6 @@
 # Plate Word Game
 
-A real-time multiplayer word game for mobile browsers. Players submit words containing letters from a licence-plate-style set of 4 letters; scoring rewards letter coverage and speed.
+A real-time multiplayer word game for mobile browsers. Players submit words containing letters from a licence-plate-style set (3–6 letters per round); scoring rewards letter coverage and speed.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ Find your machine's local IP and open `http://<your-ip>:5173` on your phone (sam
 
 1. **Create Game** — enter a nickname; share the 6-character passcode or link.
 2. **Join Game** — enter passcode (or open a shared `?code=XXXXXX` link).
-3. Host configures rounds, duration, and language in the lobby, then **Start Game**.
+3. Host configures rounds, duration, language, and letter count (3–6) in the lobby, then **Start Game**.
 4. Each round: host picks random or manual plate letters → 3s countdown → type words → round summary.
 5. After the final round, view results; host can **Play Again** (same passcode, scores reset).
 
@@ -102,6 +102,6 @@ Optional env vars (see [`.env.example`](.env.example)):
 To remove cold starts, upgrade the Render instance to Starter ($7/month).
 
 
-Scores interpolate linearly from max (at round start) to min (at round end) based on submission time. Tiers: ordered 4-letter subsequence (1500–1200), any 4 letters (1000–800), 3 letters (800–600), 2 letters (600–400), 1 letter (0).
+Scores interpolate linearly from max (at round start) to min (at round end) based on submission time. Higher tiers require more matching plate letters; an ordered match (all letters as a left-to-right subsequence) scores above the same letters in any order. Ranges scale with the host's letter count (3–6).
 
 See [plate_game_requirements.md](plate_game_requirements.md) for full product spec.
