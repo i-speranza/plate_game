@@ -43,6 +43,11 @@ export function RoundScreen({
   const lastSubmittedWordRef = useRef('');
 
   useEffect(() => {
+    if (gaveUp) return;
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }, [roundNumber, gaveUp]);
+
+  useEffect(() => {
     if (!submitResult) return;
 
     if (submitResult.valid) {
