@@ -14,8 +14,3 @@ Thumbs.db
 
 # Test output
 coverage/
-
-# Dictionary build artifacts (downloaded/generated; run npm run build:dicts)
-server/scripts/.cache/
-server/scripts/current_version/
-server/scripts/morph-it.tgz

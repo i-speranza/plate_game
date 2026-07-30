@@ -13,9 +13,8 @@ A real-time multiplayer word game for mobile browsers. Players submit words cont
 # Install dependencies
 npm install
 
-# Build shared package and word dictionaries (first run)
+# Build shared package (first run)
 npm run build -w shared
-npm run build:dicts
 
 # Start server (port 3001) + client (port 5173)
 npm run dev
@@ -35,33 +34,44 @@ Find your machine's local IP and open `http://<your-ip>:5173` on your phone (sam
 4. Each round: host picks random or manual plate letters → 3s countdown → type words → round summary.
 5. After the final round, view results; host can **Play Again** (same passcode, scores reset).
 
+
+
 ## Project structure
 
-| Package | Description |
-|---|---|
+
+| Package   | Description                                               |
+| --------- | --------------------------------------------------------- |
 | `shared/` | Types, scoring, letter matching (used by client + server) |
-| `server/` | Fastify + Socket.io game server, dictionaries |
-| `client/` | React + Vite mobile-first UI |
+| `server/` | Fastify + Socket.io game server, dictionaries             |
+| `client/` | React + Vite mobile-first UI                              |
+
+
+
 
 ## Dictionaries
 
-Built via `npm run build:dicts`:
+Italian and English word lists are committed under `server/dictionary/` and copied into the server build automatically.
 
-- **Italian:** [Morph-it](https://github.com/angelocolosso/morph-it) lemma list
-- **English:** [dwyl/english-words](https://github.com/dwyl/english-words) (`words_alpha.txt`)
 
-If download fails, a small fallback word list is used for local development.
+| Language    | Source                                                                          |
+| ----------- | ------------------------------------------------------------------------------- |
+| **Italian** | [lemmi_italiani](https://github.com/i-speranza/lemmi_italiani)                  |
+| **English** | [dwyl/english-words](https://github.com/dwyl/english-words) (`words_alpha.txt`) |
+
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Run client + server concurrently |
-| `npm run build` | Build all packages |
-| `npm run build:prod` | Build for production (includes dictionaries) |
-| `npm run build:dicts` | Download/build dictionary JSON files |
-| `npm start` | Run production server (serves API + client) |
-| `npm run test` | Run shared package unit tests |
+
+| Command               | Description                                                 |
+| --------------------- | ----------------------------------------------------------- |
+| `npm run dev`         | Run client + server concurrently                            |
+| `npm run build`       | Build all packages                                          |
+| `npm run build:prod`  | Build for production                                        |
+| `npm start`           | Run production server (serves API + client)                 |
+| `npm run test`        | Run shared package unit tests                               |
+
+
+
 
 ## Deploy (Render)
 
@@ -81,26 +91,24 @@ Open [http://localhost:3001](http://localhost:3001) (or the port set in `PORT`).
 
 1. Push `main` to GitHub.
 2. [Render](https://render.com) → **New Web Service** → connect this repo.
-3. Use settings from [`render.yaml`](render.yaml) (or set manually):
-   - **Build:** `npm install && npm run build:prod`
-   - **Start:** `npm start`
-   - **Health check:** `/health`
-   - **Instance:** Free
+3. Use settings from `[render.yaml](render.yaml)` (or set manually):
+  - **Build:** `npm install && npm run build:prod`
+  - **Start:** `npm start`
+  - **Health check:** `/health`
+  - **Instance:** Free
 4. Deploy and test from two devices (create + join a session).
 
-Optional env vars (see [`.env.example`](.env.example)):
+Optional env vars (see `[.env.example](.env.example)`):
 
 - `PORT` — set automatically by Render
 - `NODE_OPTIONS=--max-old-space-size=460` — optional heap cap on 512 MB free tier
+
+
 
 ### Free tier caveats
 
 - **Cold start:** after ~15 minutes idle, the next visit may take 30–60 seconds to wake up.
 - **In-memory sessions:** server restarts or deploys clear active games (no database yet).
-- **Dictionaries:** built during deploy from upstream sources; fallback lists apply if download fails.
-
-To remove cold starts, upgrade the Render instance to Starter ($7/month).
-
 
 Scores interpolate linearly from max (at round start) to min (at round end) based on submission time. Higher tiers require more matching plate letters; an ordered match (all letters as a left-to-right subsequence) scores above the same letters in any order. Ranges scale with the host's letter count (3–6).
 

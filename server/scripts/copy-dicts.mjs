@@ -26,7 +26,7 @@ for (const lang of ['it', 'en']) {
   if (!Array.isArray(words) || words.length < MIN_WORDS[lang]) {
     console.error(
       `Dictionary ${lang} is too small (${words.length ?? 0} words, need >= ${MIN_WORDS[lang]}).`,
-      'Restore the committed dictionary files or run npm run build:dicts locally.',
+      'Restore the committed dictionary files from server/dictionary/.',
     );
     process.exit(1);
   }
